@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+     .chart-container {
+      width: 90%;
+      float: left;
+      position: relative; 
+    }
+
+    .legend-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1; 
+    }
+  </style>
+</head>
+<body>
+ 
+  <div class="container-fluid">
+    <div class="mt-5 row d-flex justify-content-start">
+     
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          
+          <div>
+            <canvas id="myPieChart1"></canvas>
+          
+          </div>
+          <div id="legend-container-1" class="legend-container" style="position: absolute; right: -80px;"></div>
+
+        </div>
+      </div>
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+        
+          <div style="position: absolute;">
+            <canvas id="myPieChart2"></canvas>
+            
+          </div>
+        </div>
+        <div id="legend-container-2" class="legend-container mt-5" style="position: absolute; right: -40px;"></div>
+
+      </div>
+    </div>
+
+    <div class=" mt-5 mb-5 row d-flex justify-content-center">
+   
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div>
+            <canvas id="myPieChart3"></canvas>
+          </div>
+          <div id="legend-container-3" class="legend-container" style="position: absolute; top: 20px; right: -130px;"></div>
+
+        </div>
+      </div>
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div style="position: absolute;">
+            <canvas id="myPieChart4"></canvas>
+          </div>
+          <div id="legend-container-4" class="legend-container" style="position: absolute; top: 30px; right: -40px;"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div>
+            <canvas id="myBarChart1" style="height: 300px;"></canvas>
+            <div id="legend-container-5" class="legend-container" style="position: absolute; right: 10px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div>
+            <canvas id="myBarChart2" style="height: 400px;"></canvas>
+            <div id="legend-container-6" class="legend-container" style="position: absolute; right: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div>
+            <canvas id="myBarChart3" style="height: 300px;"></canvas>
+            <div id="legend-container-7" class="legend-container" style="position: absolute; right: 10px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-6 d-flex justify-content-start">
+        <div class="chart-container">
+          <div>
+            <canvas id="myHorizontalBarChart" style="height: 300px;"></canvas>
+            <div id="legend-container-8" class="legend-container" style="position: absolute; right: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data for the first pie chart
+    const piedata1 = {
+      labels: [
+        'Drug resistance',
+        'Prognostic',
+        'GC Risk assessment',
+        'Therapeutic target',
+        'Drug susceptibility',
+        'Diagnostic'
+      ],
+      datasets: [{
+        data: [0.14, 1.20, 3.46, 12.45, 12.79, 69.96],
+        backgroundColor: [
+          'rgba(147, 76, 61, 0.7)',
+          'rgba(221, 133, 33, 0.7)',
+          'rgba(165, 164, 154, 0.7)',
+          'rgba(218, 141, 238, 0.7)',
+          'rgba(248,191,86, 0.7)', 
+          'rgba(149,192,233, 0.7)'
+        ],
+      }]
+    };
+
+    // Data for the second pie chart
+    const piedata2 = {
+      labels: [
+        'Plasma',
+        'Tissue',
+        'Serum',
+        'Paraffin Embedded tissue',
+        'Gastric fluid',
+        'Extracellular vesicles from serum',
+        'Saliva',
+        'Urine'
+      ],
+      datasets: [{
+        data: [1.26, 73.93, 2.65, 18.43, 1.32, 1.66, 0.16, 0.59],
+        backgroundColor: [
+          'rgba(228, 136, 22, 0.7)',
+          'rgba(66, 107, 184, 0.7)',
+          'rgba(232, 235, 31, 0.7)',
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(218, 141, 238, 0.7)',
+          'rgba(184, 70, 92, 0.7)',
+          'rgba(144,240,94, 0.7)',
+          'rgba(54, 162, 235, 0.7)'
+        ],
+      }]
+    };
+
+    // Data for the bar chart
+    const barData1 = {
+      labels: ['2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021',  '2022', '2023'],
+      datasets: [{
+        label: 'Year of publication',
+        data: [1, 4, 6, 4, 8, 6, 5, 7, 5, 10, 7, 4, 9, 6, 9, 8, 1, 10, 13, 13, 2],
+        backgroundColor: ['rgba(69,138,255, 0.7)'],
+        borderColor: 'rgba(69,138,255, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    // Data for the horizontal bar chart
+    const horizontalBarData = {
+      labels: ['FFPE', 'Serum', 'Tissue', 'Gastric fluid', 'Plasma', 'Serum exosomes', 'Urine', 'Saliva', 'EVs from serum', 'Tissue ECM', 'Ascites'],
+      datasets: [{
+        label: '#Samples',
+        data: [
+          { x: 6, y: 'Ascites' },
+          { x: 9, y: 'Tissue ECM' },
+          { x: 33, y: 'EVs from serum' },
+          { x: 40, y: 'Saliva' },
+          { x: 44, y: 'Urine' },
+          { x: 100, y: 'Serum exosomes' },
+          { x: 120, y: 'Plasma' },
+          { x: 193, y: 'Gastric fluid' },
+          { x: 1667, y: 'Tissue' },
+          { x: 1675, y: 'Serum' },
+          { x: 1816, y: 'FFPE' },
+          { x: -2, y: 'Ascites' },
+          { x: -1, y: 'Tissue ECM' },
+          { x: -1, y: 'EVs from serum' },
+          { x: -1, y: 'Saliva' },
+          { x: -2, y: 'Urine' },
+          { x: -2, y: 'Serum exosomes' },
+          { x: -6, y: 'Plasma' },
+          { x: -6, y: 'Gastric fluid' },
+          { x: -78, y: 'Tissue' },
+          { x: -31, y: 'Serum' },
+          { x: -10, y: 'FFPE' },
+        ],
+        backgroundColor: function(context) {
+          const value = context.dataset.data[context.dataIndex].x;
+          return value < 0 ? 'rgba(217, 121, 28, 0.7)' : 'rgba(69,138,255)';
+        },
+        borderColor: function(context) {
+          const value = context.dataset.data[context.dataIndex].x;
+          return value < 0 ? 'rgba(217, 121, 28, 1)' : 'rgba(69,138,255)';
+        },
+        borderWidth: 1
+      }]
+    };
+
+    const barData2 = {
+      labels: ['Lesser curvature', 'GE Junction', 'Diffuse', 'Non-cardia', 'Pylorus', 'Corpus', 'Whole stomach', 'Fundus', 'Upper Third', 'Middle Third', 'Cardia', 'Body', 'Lower Third', 'Antrum'],
+      datasets: [{
+        label: '#Samples',
+        data: [2, 7, 10, 15, 19, 22, 27, 41, 78, 101, 132, 156, 157, 294],
+        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    const piedata3 = {
+    labels: ['Signet Ring Cell Carcinoma', 'Mixed', 'Diffuse', 'Intestinal'],
+    datasets: [{
+      label: '#Samples',
+      data: [71, 126, 674, 1034],
+        backgroundColor: [
+        'rgba(244,162,250, 0.7)',
+        'rgba(54, 162, 235, 0.7)',
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(163,162,250, 0.7)'
+        ],
+      }]
+    };
+
+    const piedata4 = {
+    labels: ['Moderate/Poorly Differentiated', 'Well differentiated', 'Well/Moderately differentiated', 'Moderately Differentiated', 'Poorly Differentiated'],
+    datasets: [{
+        data: [17, 92, 112, 156, 505],
+        backgroundColor: [
+        'rgba(55,144,104, 0.7)',
+        'rgba(184,249,143, 0.7)',
+        'rgba(163,162,250, 0.7)',
+        'rgba(157,208,243, 0.7)',
+        'rgba(244,162,250, 0.7)'
+        ],
+      }]
+    };
+
+    const barData3 = {
+    labels: ['Stage-II/IV', 'Stage-I/II/III', 'Stage-I/II', 'Stage-II/III', 'Stage-III/IV', 'Stage-I', 'Stage-II', 'Stage-IV', 'Stage-III'],
+    datasets: [{
+        label: '# Samples',
+        data: [6, 35, 67, 80, 91, 466, 604, 654, 785],
+        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+    };
+
+    // Options for charts
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+        }],
+      },
+      plugins: {
+        legend: {
+          display: false
+           // Remove legend within the chart
+        }
+      }
+    };
+
+    const options_h = {
+  indexAxis: 'y',
+  scales: {
+    x: {
+      grid: {
+        display: false // remove x-axis grid lines
+      },
+    },
+    y: {
+      grid: {
+        display: false // remove x-axis grid lines
+      },
+    }
+  },
+  plugins: {
+    legend: {
+      display: false // remove legend within the chart
+    }
+  }
+};
+
+    // Create the first pie chart
+    const ctx1 = document.getElementById('myPieChart1').getContext('2d');
+    const myPieChart1 = new Chart(ctx1, {
+      type: 'pie',
+      data: piedata1,
+      options: options
+    });
+
+    // Create the second pie chart
+    const ctx2 = document.getElementById('myPieChart2').getContext('2d');
+    const myPieChart2 = new Chart(ctx2, {
+      type: 'pie',
+      data: piedata2,
+      options: options
+    });
+
+    const ctx6 = document.getElementById('myPieChart3').getContext('2d');
+    const myPieChart3 = new Chart(ctx6, {
+      type: 'pie',
+      data: piedata3,
+      options: options
+    });
+
+    const ctx7 = document.getElementById('myPieChart4').getContext('2d');
+    const myPieChart4 = new Chart(ctx7, {
+      type: 'pie',
+      data: piedata4,
+      options: options
+    });
+    // Create the first bar chart
+    const ctx3 = document.getElementById('myBarChart1').getContext('2d');
+    const myBarChart1 = new Chart(ctx3, {
+      type: 'bar',
+      data: barData1,
+      options: options
+    });
+        myBarChart1.options.scales = {
+    y: {
+        grid: {
+            display: false
+        }
+    },
+    x: {
+        grid: {
+            display: false
+        }
+    }
+};
+myBarChart1.update();
+
+    // Create the horizontal bar chart
+    const ctx4 = document.getElementById('myHorizontalBarChart').getContext('2d');
+    const myHorizontalBarChart = new Chart(ctx4, {
+      type: 'bar',
+      data: horizontalBarData,
+      options: options_h
+    });
+
+
+    // Create the second bar chart
+    const ctx5 = document.getElementById('myBarChart2').getContext('2d');
+    const myBarChart2 = new Chart(ctx5, {
+      type: 'bar',
+      data: barData2,
+      options: options
+    });
+
+
+
+    const ctx8 = document.getElementById('myBarChart3').getContext('2d');
+    const myBarChart3 = new Chart(ctx8, {
+      type: 'bar',
+      data: barData3,
+      options: options
+    });
+
+
+
+    myBarChart3.options.scales = {
+    y: {
+        grid: {
+            display: false
+        }
+    },
+    x: {
+        grid: {
+            display: false
+        }
+    }
+};
+myBarChart3.update();
+
+function createLegend(containerId, labels, backgroundColors) { 
+      const legendContainer = document.getElementById(containerId);
+      let legendHTML = '';
+      labels.forEach((label, index) => {
+        legendHTML += `
+          <div style="display: flex; align-items: center; margin-bottom: 5px;margin-right: 55px;">
+            <div style="background-color: ${backgroundColors[index]}; width: 40px; height: 10px; margin-right: 5px;"></div>
+            <div>${label}</div>
+          </div>
+        `;
+      });
+      legendContainer.innerHTML = legendHTML;
+    }
+
+    // Call createLegend for each chart
+    createLegend('legend-container-1', piedata1.labels, piedata1.datasets[0].backgroundColor);
+    createLegend('legend-container-2', piedata2.labels, piedata2.datasets[0].backgroundColor);
+    createLegend('legend-container-3', piedata3.labels, piedata3.datasets[0].backgroundColor);
+    createLegend('legend-container-4', piedata4.labels, piedata4.datasets[0].backgroundColor);
+    // createLegend('legend-container-5', barData1.labels, [barData1.datasets[0].backgroundColor]);
+    // createLegend('legend-container-6', barData2.labels, [barData2.datasets[0].backgroundColor]);
+    // createLegend('legend-container-7', barData3.labels, [barData3.datasets[0].backgroundColor]);
+    // Adjust the datasets array for horizontalBarChart
+    const horizontalBarLabels = horizontalBarData.datasets[0].data.map(item => item.y);
+    const horizontalBarBackgroundColors = horizontalBarData.datasets[0].backgroundColor.map(color => {
+      return Array.isArray(color) ? color[0] : color;
+    });
+    createLegend('legend-container-8', horizontalBarLabels, horizontalBarBackgroundColors);
+  </script>
+</body>
+</html>
